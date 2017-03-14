@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Weather App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="node_modules/angular-toastr/dist/angular-toastr.css" rel="stylesheet">
+</head>
+
+<body ng-app="weather">
+    <div ng-controller="WeatherControl as WthrCtrl">
+        <div class="jumbotron vertical-center" style="text-align: center">
+            <h1>Weather App</h1>
+            <h2>Weather at your Fingertips!</h2>
+        </div>
+        <div class="container">
+            <div id="citySearch" class="row">
+
+                <div class="btn btn-group">
+                    <button type="button" class="btn btn-primary" ng-click="WthrCtrl.btnSearch('Chicago')" name="Chicago">Chicago</button>
+                    <button type="button" class="btn btn-primary" ng-click="WthrCtrl.btnSearch('San Diego')" name="San Diego">San Diego</button>
+                    <button type="button" class="btn btn-primary" ng-click="WthrCtrl.btnSearch('New York')" name="New York">New York</button>
+                    <button type="button" class="btn btn-primary" ng-click="WthrCtrl.btnSearch('Paris')" name="Paris">Paris</button>
+                    <button type="button" class="btn btn-primary" ng-click="WthrCtrl.btnSearch('Tokyo')" name="Tokyo">Tokyo</button>
+                </div>
+                <input type="text" ng-model="WthrCtrl.searchTerm" placeholder="Enter City:">
+                <button type="button" ng-click="WthrCtrl.search()">Get Weather!</button>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                    <div id="cityInfo" class="panel panel-info">
+                        <div class="panel-heading">City Information</div>
+                        <div ng-hide="WthrCtrl.hide">
+                            <div class="row">
+                                <div class="text-center">
+                                    <h1>{{WthrCtrl.currentCity.name}}</h1>
+                                    <p>Lat/Long: {{WthrCtrl.currentCity.coord.lat}}, {{WthrCtrl.currentCity.coord.lon}}</p>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Temperature</th>
+                                        <th>Pressure</th>
+                                        <th>Humidity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{WthrCtrl.currentCity.main.temp}}°F</td>
+                                        <td>{{WthrCtrl.currentCity.main.pressure}} mbar</td>
+                                        <td>{{WthrCtrl.currentCity.main.humidity}}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Lowest Temp</th>
+                                        <th>Highest Temp</th>
+                                        <th>Wind Speed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{WthrCtrl.currentCity.main.temp_min}}°F</td>
+                                        <td>{{WthrCtrl.currentCity.main.temp_max}}°F</td>
+                                        <td>{{WthrCtrl.currentCity.wind.speed}} mph</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+
+                    <div id="searchHistory" class="panel panel-info">
+                        <div class="panel-heading">Search History</div>
+                        <div ng-hide="WthrCtrl.hide">
+                            <table class="table table-striped" style="margin-bottom:0;">
+                                <thead>
+
+                                    <tr>
+                                        <th>City</th>
+                                        <th>Date Searched</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="query in WthrCtrl.queries">
+                                        <td>{{query.city}}</td>
+                                        <td>{{query.dateTime}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app/app.module.js"></script>
+    <script type="text/javascript" src="app/weather.controller.js"></script>
+    <script type="text/javascript" src="node_modules/angular-toastr/dist/angular-toastr.tpls.js"></script>
+</body>
+
+</html>
