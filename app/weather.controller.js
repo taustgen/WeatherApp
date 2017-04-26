@@ -23,7 +23,6 @@
                 });
                 vm.searchTerm = '';
                 vm.hide = false;
-                toastr.success('Hello world!', 'Toastr fun!');
             }, function errorCallback(response) {
                 toastr.error(response.data.message, "Error: " + response.data.cod.toUpperCase())
             });
